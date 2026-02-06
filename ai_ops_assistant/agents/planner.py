@@ -1,6 +1,6 @@
 import json
-from llm.llm_client import call_llm
-from utils.log import logger
+from ai_ops_assistant.llm.llm_client import call_llm
+from ai_ops_assistant.utils.log import logger
 
 
 def create_plan(user_input: str):
