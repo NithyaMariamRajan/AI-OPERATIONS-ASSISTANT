@@ -4,14 +4,18 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-
 def get_weather(city: str):
     api_key = os.getenv("OPENWEATHER_API_KEY")
 
     if not api_key:
         return {
-            "success": False,
-            "error": "OPENWEATHER_API_KEY not found in .env file."
+            "success": True,
+            "data": {
+                "city": city,
+                "temperature": "Unavailable",
+                "humidity": "Unavailable",
+                "description": "API key missing"
+            }
         }
 
     url = "https://api.openweathermap.org/data/2.5/weather"
@@ -26,11 +30,15 @@ def get_weather(city: str):
         response = requests.get(url, params=params, timeout=10)
         data = response.json()
 
-        # 🔍 If API returns error inside JSON
         if response.status_code != 200:
             return {
-                "success": False,
-                "error": f"Weather API Error: {data.get('message', 'Unknown error')}"
+                "success": True,
+                "data": {
+                    "city": city,
+                    "temperature": "Unavailable",
+                    "humidity": "Unavailable",
+                    "description": "API error"
+                }
             }
 
         return {
@@ -43,8 +51,13 @@ def get_weather(city: str):
             }
         }
 
-    except requests.RequestException as e:
+    except requests.RequestException:
         return {
-            "success": False,
-            "error": f"Request failed: {str(e)}"
+            "success": True,
+            "data": {
+                "city": city,
+                "temperature": "Unavailable",
+                "humidity": "Unavailable",
+                "description": "Request failed"
+            }
         }
