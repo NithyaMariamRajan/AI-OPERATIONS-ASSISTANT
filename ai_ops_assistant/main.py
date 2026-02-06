@@ -2,9 +2,9 @@ from fastapi import FastAPI, Request, Form
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
-from agents.planner import create_plan
-from agents.executor import execute_plan
-from agents.verifier import generate_response
+from ai_ops_assistant.agents.planner import create_plan
+from ai_ops_assistant.agents.executor import execute_plan
+from ai_ops_assistant.agents.verifier import generate_response
 
 app = FastAPI(title="OpsPilot AI")
 
