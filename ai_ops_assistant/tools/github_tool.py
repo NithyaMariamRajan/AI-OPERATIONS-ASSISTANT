@@ -1,8 +1,5 @@
 import requests
-from utils.log import logger
-
-# Simple in-memory cache
-_CACHE = {}
+from ai_ops_assistant.utils.log import logger
 
 
 def search_repositories(query: str, top_k: int = 3):
@@ -11,16 +8,7 @@ def search_repositories(query: str, top_k: int = 3):
     Returns top_k repositories for the given query.
     """
 
-    cache_key = f"{query}_{top_k}"
-
-    # -----------------------------
-    # CACHE CHECK
-    # -----------------------------
-    if cache_key in _CACHE:
-        logger.info("GitHub cache hit")
-        return _CACHE[cache_key]
-
-    logger.info("Calling GitHub API")
+    logger.info(f"Searching GitHub for: {query}")
 
     url = "https://api.github.com/search/repositories"
 
@@ -33,17 +21,9 @@ def search_repositories(query: str, top_k: int = 3):
 
     try:
         response = requests.get(url, params=params, timeout=10)
-
-        if response.status_code == 403:
-            return {
-                "success": False,
-                "error": "GitHub rate limit exceeded. Try again later."
-            }
-
         response.raise_for_status()
-
     except requests.RequestException as e:
-        logger.error("GitHub API failed")
+        logger.error(f"GitHub API failed: {str(e)}")
         return {
             "success": False,
             "error": f"GitHub API request failed: {str(e)}"
@@ -63,16 +43,9 @@ def search_repositories(query: str, top_k: int = 3):
             "description": repo.get("description")
         })
 
-    final_result = {
+    logger.info("GitHub search completed")
+
+    return {
         "success": True,
         "data": results
     }
-
-    # -----------------------------
-    # SAVE TO CACHE
-    # -----------------------------
-    _CACHE[cache_key] = final_result
-
-    logger.info("GitHub call successful")
-
-    return final_result
