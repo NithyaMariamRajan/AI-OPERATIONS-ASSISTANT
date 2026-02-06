@@ -1,6 +1,6 @@
-from tools.github_tool import search_repositories
-from tools.weather_tool import get_weather
-from utils.log import logger
+from ai_ops_assistant.tools.github_tool import search_repositories
+from ai_ops_assistant.tools.weather_tool import get_weather
+from ai_ops_assistant.utils.log import logger
 
 
 def execute_plan(plan: dict):
