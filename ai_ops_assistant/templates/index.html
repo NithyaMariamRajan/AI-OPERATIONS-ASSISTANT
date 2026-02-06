@@ -1,73 +1,107 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>AI OPERATIONS ASSISTANT</title>
+    <title>AI Ops Automation Assistant</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f6f8;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0f172a, #1e40af);
             padding: 40px;
+            margin: 0;
         }
 
         .container {
             max-width: 900px;
             margin: auto;
             background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
         h1 {
             text-align: center;
-            color: #1f2937;
+            color: #0f172a;
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: gray;
+            margin-bottom: 20px;
         }
 
         input[type="text"] {
             width: 100%;
-            padding: 12px;
-            margin-top: 10px;
-            border-radius: 5px;
+            padding: 14px;
+            margin-top: 15px;
+            border-radius: 10px;
             border: 1px solid #ccc;
             font-size: 16px;
         }
 
         button {
             margin-top: 15px;
-            padding: 10px 20px;
+            padding: 12px 24px;
             border: none;
             background: #2563eb;
             color: white;
-            border-radius: 5px;
+            border-radius: 25px;
             cursor: pointer;
             font-size: 16px;
+            transition: all 0.3s ease;
         }
 
         button:hover {
             background: #1d4ed8;
+            transform: scale(1.05);
         }
 
         .response-box {
             margin-top: 25px;
             background: #f1f5f9;
             padding: 20px;
-            border-radius: 8px;
+            border-radius: 12px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             white-space: pre-wrap;
             font-size: 15px;
             line-height: 1.6;
+            border-left: 5px solid #2563eb;
         }
 
         .error {
             color: red;
             margin-top: 15px;
         }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 13px;
+            color: gray;
+        }
+
+        #loading {
+            display: none;
+            margin-top: 15px;
+            color: #2563eb;
+            font-weight: bold;
+        }
     </style>
+
+    <script>
+        function showLoading() {
+            document.getElementById("loading").style.display = "block";
+        }
+    </script>
 </head>
 <body>
 
 <div class="container">
-    <h1>AI OPERATIONS ASSISTANT</h1>
+    <h1>AI Ops Automation Assistant</h1>
+    <p class="subtitle">
+        An AI-powered system that plans, executes, and verifies tasks automatically.
+    </p>
 
     <form action="/ask" method="post">
         <input 
@@ -76,8 +110,10 @@
             placeholder="Example: Find top 2 AI repositories and weather in Bangalore"
             required
         >
-        <button type="submit">Ask</button>
+        <button type="submit" onclick="showLoading()">Ask</button>
     </form>
+
+    <p id="loading">⏳ Fetching results...</p>
 
     {% if error %}
         <p class="error">{{ error }}</p>
@@ -88,6 +124,10 @@
 {{ response }}
         </div>
     {% endif %}
+
+    <div class="footer">
+        Built with FastAPI + AI Agents
+    </div>
 </div>
 
 </body>
