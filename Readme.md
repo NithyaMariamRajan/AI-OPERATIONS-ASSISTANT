@@ -124,17 +124,6 @@ Each request is processed independently with no conversation memory.
 ### Local Model Constraints  
 The local model (phi3) is smaller than cloud-based models like GPT-4.
 
----
 
-## Future Improvements
 
-If more time were available:
-- Add parallel tool execution  
-- Implement persistent caching  
-- Support additional APIs such as News or Stocks  
-- Build a chat-style interface  
-- Add retry logic for failed tools  
 
----
-
-Built as part of the 24-hour GenAI Intern Assignment.
