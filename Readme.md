@@ -63,6 +63,13 @@ Used to fetch real-time weather information for any city, including:
 - Weather condition  
 
 ---
+### Tech Stack
+-Python
+-FastAPI
+-Ollama (phi3 local LLM)
+-GitHub REST API
+-OpenWeather API
+-dotenv for environment management
 
 ## Setup Instructions to Run Locally
 
